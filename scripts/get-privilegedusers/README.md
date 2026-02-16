@@ -6,19 +6,19 @@ With PowerShell ISE going away in Windows 11, I built the script in Microsoft VS
 
 To connect to Microsoft Graph in PowerShell, I used the following command:
 
-```jsx
+```powershell
 Connect-MgGraph -Scopes "Directory.Read.All", "RoleManagement.Read.All"
 ```
 
 Once connected, to get all the directory roles (admin roles), I used the following command: 
 
-```jsx
+```powershell
 $adminRoles = Get-MgDirectoryRole -All
 ```
 
 To get all the members in each role I ran the command:
 
-```jsx
+```powershell
 $privilegedUsers = @()
 foreach ($role in $adminRoles) {
     $members = Get-MgDirectoryRoleMember -DirectoryRoleId $role.Id
@@ -34,14 +34,13 @@ foreach ($role in $adminRoles) {
 
 Then finally to export the results into a CSV I used the following command:
 
-```jsx
+```powershell
 $privilegedUsers | Export-Csv -Path "PrivilegeAudit_$(Get-Date -Format 'yyyyMMdd').csv" -NoTypeInformation
 $privilegedUsers | Format-Table -AutoSize
 ```
 
-For easy future use, I’ve saved the script as [`Get-PrivilegedUsers.ps](http://Get-PrivilegedUsers.ps)1`
-
-[Get-PrivilegedUsers.ps1](attachment:0236330d-703d-4b4e-9aed-28e39e795a7e:Get-PrivilegedUsers.ps1)
 
 Running the script gave me this output visually:
-![Code_Q0fgOSkMMZ.png](attachment:e2cbb181-86e5-4394-ab67-c0c2154a3222:Code_Q0fgOSkMMZ.png)
+<img width="2421" height="1773" alt="Code_Q0fgOSkMMZ" src="https://github.com/user-attachments/assets/45b6f58a-7b29-4bd9-8324-20e8b88b829f" />
+
+
